@@ -96,7 +96,12 @@ describe('OrganizationVisualizer', () => {
     expect(screen.getAllByText('Ước tính').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Chưa có telemetry').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Frontend Engineer Agent').length).toBeGreaterThan(0);
-    expect(screen.getByText('Tokens: 100')).toBeInTheDocument();
+    expect(screen.getAllByText('Lượt gọi tool').length).toBeGreaterThan(0);
+    expect(screen.getByText('Tổng token')).toBeInTheDocument();
+    expect(screen.getByText('Token đã dùng: 100')).toBeInTheDocument();
+    expect(screen.queryByText('Tool calls')).not.toBeInTheDocument();
+    expect(screen.queryByText('Tokens')).not.toBeInTheDocument();
+    expect(screen.queryByText('Tokens: 100')).not.toBeInTheDocument();
 
     expect(fetchMock).toHaveBeenCalledWith('/data/organization/agents.json');
     expect(fetchMock).toHaveBeenCalledWith('/data/organization/runs/demo-run.json');

@@ -84,12 +84,12 @@ const eventTypeLabels: Record<OrganizationEventType, string> = {
   message: 'Trao đổi',
   handoff: 'Bàn giao',
   decision: 'Quyết định',
-  tool_call: 'Tool call',
+  tool_call: 'Gọi tool',
   artifact: 'Artifact',
   review: 'Review',
   approval: 'Phê duyệt',
   ci_check: 'CI check',
-  token_usage: 'Token usage',
+  token_usage: 'Sử dụng token',
 };
 
 function formatDateTime(timestamp: string): string {
@@ -231,11 +231,11 @@ export function OrganizationVisualizer() {
           <strong>{events.filter((event) => event.status === 'passed' || event.status === 'approved').length}</strong>
         </article>
         <article className="metric-badge metric-badge--warning">
-          <span>Tool calls</span>
+          <span>Lượt gọi tool</span>
           <strong>{toolCallCount}</strong>
         </article>
         <article className="metric-badge">
-          <span>Tokens</span>
+          <span>Tổng token</span>
           <strong>{totalTokens.toLocaleString('vi-VN')}</strong>
         </article>
       </div>
@@ -328,7 +328,7 @@ export function OrganizationVisualizer() {
                       <dd>{formatDuration(event.durationMs)}</dd>
                     </div>
                   </dl>
-                  {event.toolName ? <small>Tool: {event.toolName}</small> : null}
+                  {event.toolName ? <small>Công cụ: {event.toolName}</small> : null}
                 </article>
               ))}
             </section>
@@ -368,12 +368,12 @@ export function OrganizationVisualizer() {
                 </div>
                 <dl>
                   <div>
-                    <dt>Tool calls</dt>
+                    <dt>Lượt gọi tool</dt>
                     <dd>{item.toolCalls}</dd>
                   </div>
                   <div>
-                    <dt>Tokens</dt>
-                    <dd>Tokens: {item.tokens.total.toLocaleString('vi-VN')}</dd>
+                    <dt>Token đã dùng</dt>
+                    <dd>Token đã dùng: {item.tokens.total.toLocaleString('vi-VN')}</dd>
                   </div>
                 </dl>
                 <TelemetryBadge quality={item.tokens.quality} />
