@@ -30,6 +30,6 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['dist', 'dist-data-check', 'coverage', 'node_modules'],
+    ignores: ['dist', 'dist-data-check', 'coverage', 'node_modules', '.vite'],
   },
 );
