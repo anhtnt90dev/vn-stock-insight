@@ -1,0 +1,26 @@
+[
+  {
+    "eventId": "tool-001",
+    "runId": "demo-run",
+    "agentId": "tech-lead",
+    "role": "Tech Lead Agent",
+    "toolName": "git status",
+    "purpose": "Confirm branch and local workspace state before editing Task 4 files.",
+    "status": "passed",
+    "durationMs": 450,
+    "summary": "Confirmed the active branch and avoided including any sensitive repository or environment values.",
+    "sanitized": true
+  },
+  {
+    "eventId": "tool-002",
+    "runId": "demo-run",
+    "agentId": "data-engineer",
+    "role": "Data Engineer Agent",
+    "toolName": "npm run data:validate",
+    "purpose": "Validate static stock fixture data after adding organization trace fixtures.",
+    "status": "passed",
+    "durationMs": 1800,
+    "summary": "Validated fixture structure using project scripts. Output summaries are redacted to command status only.",
+    "sanitized": true
+  }
+]
