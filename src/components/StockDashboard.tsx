@@ -58,6 +58,14 @@ export function StockDashboard({ dataset, refreshState, onRefresh }: StockDashbo
   const selected = selectedSymbol
     ? dataset.recommendations.find((item) => item.symbol === selectedSymbol) ?? null
     : null;
+  const selectedPrices = selected ? dataset.pricesBySymbol[selected.symbol] : undefined;
+  const selectedFundamentals = selected ? dataset.fundamentalsBySymbol[selected.symbol] : undefined;
+  const selectedIndicators = selected ? dataset.indicatorsBySymbol[selected.symbol] : undefined;
+  const hasSelectedDetailData =
+    selected !== null &&
+    selectedPrices !== undefined &&
+    selectedFundamentals !== undefined &&
+    selectedIndicators !== undefined;
 
   const submitWatchlist = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -230,15 +238,22 @@ export function StockDashboard({ dataset, refreshState, onRefresh }: StockDashbo
           ) : null}
         </div>
 
-        {selected ? (
+        {hasSelectedDetailData ? (
           <StockDetail
             symbol={selected.symbol}
-            prices={dataset.pricesBySymbol[selected.symbol] ?? []}
-            fundamentals={dataset.fundamentalsBySymbol[selected.symbol]}
-            indicators={dataset.indicatorsBySymbol[selected.symbol]}
+            prices={selectedPrices}
+            fundamentals={selectedFundamentals}
+            indicators={selectedIndicators}
             recommendation={selected}
             onClose={() => setSelectedSymbol(null)}
           />
+        ) : selected ? (
+          <aside className="detail-panel detail-panel--empty">
+            <span className="eyebrow">Chi tiết mã</span>
+            <h2>{selected.symbol}</h2>
+            <p>Thiếu dữ liệu chi tiết cho {selected.symbol}.</p>
+            <p>Dữ liệu giá, cơ bản hoặc kỹ thuật chưa đầy đủ nên chưa thể hiển thị bảng chi tiết.</p>
+          </aside>
         ) : (
           <aside className="detail-panel detail-panel--empty">
             <span className="eyebrow">Chi tiết mã</span>
