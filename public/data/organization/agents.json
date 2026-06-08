@@ -1,0 +1,66 @@
+[
+  {
+    "agentId": "sales",
+    "role": "Sales Agent",
+    "responsibility": "Capture customer goals, shape scope, and maintain delivery acceptance criteria.",
+    "status": "approved",
+    "ownership": ["customer-intake", "proposal", "acceptance-criteria"],
+    "reviewAuthority": ["customer approval gate", "scope change approval"]
+  },
+  {
+    "agentId": "architect",
+    "role": "Architect Agent",
+    "responsibility": "Define static-first architecture, data flow, boundaries, and technical decision records.",
+    "status": "reviewing",
+    "ownership": ["docs/superpowers/specs", "src/domain", "public/data/schema"],
+    "reviewAuthority": ["architecture-impacting changes", "dev -> main"]
+  },
+  {
+    "agentId": "tech-lead",
+    "role": "Tech Lead Agent",
+    "responsibility": "Coordinate implementation slices, enforce code quality, and review integration risk.",
+    "status": "working",
+    "ownership": ["src", "tests", "docs/superpowers/plans"],
+    "reviewAuthority": ["feature/* -> dev", "implementation handoffs"]
+  },
+  {
+    "agentId": "data-engineer",
+    "role": "Data Engineer Agent",
+    "responsibility": "Maintain static market data, ETL scripts, validation, and data health artifacts.",
+    "status": "working",
+    "ownership": ["public/data", "scripts"],
+    "reviewAuthority": ["data fixture changes", "ETL changes"]
+  },
+  {
+    "agentId": "quant",
+    "role": "Quant Analyst Agent",
+    "responsibility": "Own scoring rules, signal interpretation, and recommendation rationale quality.",
+    "status": "working",
+    "ownership": ["src/domain/scoring.ts", "src/domain/indicators.ts"],
+    "reviewAuthority": ["scoring changes", "recommendation changes"]
+  },
+  {
+    "agentId": "frontend",
+    "role": "Frontend Engineer Agent",
+    "responsibility": "Build dashboard and organization visualizer experiences for static deployment.",
+    "status": "working",
+    "ownership": ["src/App.tsx", "src/components", "src/styles.css"],
+    "reviewAuthority": ["UI changes", "accessibility review"]
+  },
+  {
+    "agentId": "qa",
+    "role": "QA Engineer Agent",
+    "responsibility": "Verify regression coverage, quality gates, fixture validity, and release readiness.",
+    "status": "idle",
+    "ownership": ["tests", "quality-gates"],
+    "reviewAuthority": ["QA sign-off", "release sign-off"]
+  },
+  {
+    "agentId": "devops",
+    "role": "DevOps Engineer Agent",
+    "responsibility": "Maintain CI/CD, GitHub Pages deployment, branch policy, and release operations.",
+    "status": "working",
+    "ownership": [".github", "vite.config.ts", "package.json"],
+    "reviewAuthority": ["workflow changes", "deployment changes", "release sign-off"]
+  }
+]

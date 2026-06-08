@@ -1,0 +1,41 @@
+[
+  {
+    "eventId": "evt-002",
+    "runId": "demo-run",
+    "agentId": "architect",
+    "role": "Architect Agent",
+    "phase": "architecture",
+    "task": "Static-first architecture decision",
+    "prompt": 260,
+    "completion": 120,
+    "total": 380,
+    "telemetryQuality": "estimated",
+    "sanitized": true
+  },
+  {
+    "eventId": "evt-003",
+    "runId": "demo-run",
+    "agentId": "tech-lead",
+    "role": "Tech Lead Agent",
+    "phase": "implementation",
+    "task": "Delivery decomposition and implementation handoff",
+    "prompt": 420,
+    "completion": 180,
+    "total": 600,
+    "telemetryQuality": "estimated",
+    "sanitized": true
+  },
+  {
+    "eventId": "evt-005",
+    "runId": "demo-run",
+    "agentId": "qa",
+    "role": "QA Engineer Agent",
+    "phase": "review",
+    "task": "Quality gate review",
+    "prompt": 0,
+    "completion": 0,
+    "total": 0,
+    "telemetryQuality": "unavailable",
+    "sanitized": true
+  }
+]
