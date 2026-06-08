@@ -1,8 +1,18 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 
 const root = process.cwd();
-const dataRoot = join(root, 'public', 'data');
+const dataRootFlagIndex = process.argv.indexOf('--data-root');
+const dataRootArgument = dataRootFlagIndex === -1 ? undefined : process.argv[dataRootFlagIndex + 1];
+
+if (dataRootFlagIndex !== -1 && !dataRootArgument) {
+  throw new Error('--data-root requires a directory path.');
+}
+
+const dataRoot =
+  dataRootFlagIndex === -1
+    ? join(root, 'public', 'data')
+    : resolve(root, dataRootArgument);
 const stockExchanges = ['HOSE', 'HNX', 'UPCOM'];
 const dataHealthSources = ['static-fixture', 'github-actions-etl', 'manual-browser-refresh'];
 const dataHealthStatuses = ['healthy', 'partial', 'failed'];

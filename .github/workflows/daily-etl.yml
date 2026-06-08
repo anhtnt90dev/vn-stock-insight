@@ -2,9 +2,12 @@ name: Daily ETL
 
 on:
   schedule:
-    # 17:30 Asia/Bangkok, after Vietnam market close, Monday-Friday.
+    # 17:30 Asia/Ho_Chi_Minh, after Vietnam market close, Monday-Friday.
     - cron: "30 10 * * 1-5"
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   generate:

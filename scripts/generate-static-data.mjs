@@ -13,6 +13,6 @@ if (!existsSync(dataRoot)) {
 rmSync(generatedRoot, { recursive: true, force: true });
 cpSync(dataRoot, generatedRoot, { recursive: true });
 
-execFileSync(process.execPath, ['scripts/validate-data.mjs'], { stdio: 'inherit' });
+execFileSync(process.execPath, ['scripts/validate-data.mjs', '--data-root', generatedRoot], { stdio: 'inherit' });
 
 console.log('Generated static data check artifacts.');
