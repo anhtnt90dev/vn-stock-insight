@@ -1,0 +1,72 @@
+[
+  {
+    "eventId": "evt-001",
+    "runId": "demo-run",
+    "timestamp": "2026-06-08T09:00:00+07:00",
+    "phase": "Sales",
+    "agentId": "sales",
+    "role": "Sales Agent",
+    "eventType": "message",
+    "summary": "Sales intake captured the VN Stock Insight request, MVP watchlist, static deployment target, and acceptance gates.",
+    "status": "passed",
+    "artifactRefs": ["docs/superpowers/specs/2026-06-07-vn-stock-insight-design.md"],
+    "telemetryQuality": "unavailable"
+  },
+  {
+    "eventId": "evt-002",
+    "runId": "demo-run",
+    "timestamp": "2026-06-08T09:15:00+07:00",
+    "phase": "architecture",
+    "agentId": "architect",
+    "role": "Architect Agent",
+    "eventType": "decision",
+    "summary": "Architecture decision selected a static-first React app with validated JSON fixtures and GitHub Pages hosting.",
+    "status": "approved",
+    "artifactRefs": ["docs/superpowers/specs/2026-06-07-vn-stock-insight-design.md"],
+    "tokenUsage": { "prompt": 260, "completion": 120, "total": 380 },
+    "telemetryQuality": "estimated"
+  },
+  {
+    "eventId": "evt-003",
+    "runId": "demo-run",
+    "timestamp": "2026-06-08T09:35:00+07:00",
+    "phase": "implementation",
+    "agentId": "tech-lead",
+    "role": "Tech Lead Agent",
+    "eventType": "handoff",
+    "summary": "Implementation handoff split delivery into foundation, data, scoring, organization trace, UI, CI/CD, and documentation slices.",
+    "status": "passed",
+    "fromAgentId": "tech-lead",
+    "toAgentId": "data-engineer",
+    "artifactRefs": ["docs/superpowers/plans/2026-06-08-vn-stock-insight-implementation.md"],
+    "tokenUsage": { "prompt": 420, "completion": 180, "total": 600 },
+    "telemetryQuality": "estimated"
+  },
+  {
+    "eventId": "evt-004",
+    "runId": "demo-run",
+    "timestamp": "2026-06-08T09:50:00+07:00",
+    "phase": "implementation",
+    "agentId": "data-engineer",
+    "role": "Data Engineer Agent",
+    "eventType": "tool_call",
+    "summary": "Validated static fixture structure using the repository data validation command.",
+    "status": "passed",
+    "toolName": "npm run data:validate",
+    "durationMs": 1800,
+    "telemetryQuality": "unavailable"
+  },
+  {
+    "eventId": "evt-005",
+    "runId": "demo-run",
+    "timestamp": "2026-06-08T10:00:00+07:00",
+    "phase": "review",
+    "agentId": "qa",
+    "role": "QA Engineer Agent",
+    "eventType": "review",
+    "summary": "Review event confirmed quality gates for lint, typecheck, unit tests, build, and data validation.",
+    "status": "approved",
+    "artifactRefs": ["tests/domain/organization.test.ts"],
+    "telemetryQuality": "unavailable"
+  }
+]
