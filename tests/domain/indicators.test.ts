@@ -26,6 +26,10 @@ describe('technical indicators', () => {
     expect(rsi as number).toBeLessThanOrEqual(100);
   });
 
+  it('returns neutral RSI for a flat close series', () => {
+    expect(calculateRsi([10, 10, 10, 10, 10], 4)).toBe(50);
+  });
+
   it('builds latest technical indicator object', () => {
     const indicators = latestTechnicalIndicators('FPT', bars, '2026-01-05T00:00:00+07:00');
     expect(indicators.symbol).toBe('FPT');

@@ -42,4 +42,14 @@ describe('stock scoring', () => {
     expect(recommendation.softLabel).toBe('Rất tiềm năng');
     expect(recommendation.confidence).toBe(0.92);
   });
+
+  it('clamps confidence above one', () => {
+    const recommendation = toRecommendation('FPT', 84, 82, 86, 1.25, [], []);
+    expect(recommendation.confidence).toBe(1);
+  });
+
+  it('clamps confidence below zero', () => {
+    const recommendation = toRecommendation('FPT', 84, 82, 86, -0.25, [], []);
+    expect(recommendation.confidence).toBe(0);
+  });
 });

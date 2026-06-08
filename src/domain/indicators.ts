@@ -14,6 +14,7 @@ export function calculateRsi(closes: number[], period = 14): number | null {
   const losses = recent.map((delta) => Math.max(-delta, 0));
   const avgGain = gains.reduce((sum, value) => sum + value, 0) / period;
   const avgLoss = losses.reduce((sum, value) => sum + value, 0) / period;
+  if (avgGain === 0 && avgLoss === 0) return 50;
   if (avgLoss === 0) return 100;
   const rs = avgGain / avgLoss;
   return 100 - 100 / (1 + rs);

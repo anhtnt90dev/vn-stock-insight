@@ -17,6 +17,11 @@ function clampScore(value: number): number {
   return Math.max(0, Math.min(100, Math.round(value)));
 }
 
+function clampConfidence(value: number): number {
+  if (!Number.isFinite(value)) return 0;
+  return Math.max(0, Math.min(1, value));
+}
+
 function addMetricScore(
   value: number | null,
   good: boolean,
@@ -181,14 +186,15 @@ export function toRecommendation(
   warnings: string[] = [],
 ): Recommendation {
   const score = clampScore(totalScore);
+  const clampedConfidence = clampConfidence(confidence);
   return {
     symbol,
     totalScore: score,
     fundamentalScore: clampScore(fundamentalScore),
     technicalScore: clampScore(technicalScore),
     softLabel: labelFor(score),
-    action: actionFor(score, confidence),
-    confidence,
+    action: actionFor(score, clampedConfidence),
+    confidence: clampedConfidence,
     reasons: [`Điểm tổng hợp ${score}/100 dựa trên 50% cơ bản và 50% kỹ thuật.`],
     positiveSignals: positives,
     negativeSignals: negatives,
