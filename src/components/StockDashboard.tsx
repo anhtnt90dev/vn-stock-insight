@@ -4,6 +4,7 @@ import type { MarketDataset, Recommendation, StockMeta } from '../domain/types';
 import { useLocalWatchlist } from '../hooks/useLocalWatchlist';
 import { DataStatus } from './DataStatus';
 import { MetricBadge } from './MetricBadge';
+import { recommendationActionLabel } from './recommendationDisplay';
 import { StockDetail } from './StockDetail';
 
 interface StockDashboardProps {
@@ -68,12 +69,12 @@ export function StockDashboard({ dataset, refreshState, onRefresh }: StockDashbo
     <section className="workspace">
       <header className="topbar">
         <div>
-          <span className="eyebrow">Stock Insight Dashboard</span>
+          <span className="eyebrow">Bảng phân tích cổ phiếu</span>
           <h1>Phân tích cổ phiếu Việt Nam</h1>
         </div>
         <button type="button" className="primary-button" onClick={onRefresh}>
           <RefreshCcw size={18} />
-          Refresh
+          Làm mới
         </button>
       </header>
 
@@ -81,26 +82,26 @@ export function StockDashboard({ dataset, refreshState, onRefresh }: StockDashbo
 
       <div className="summary-grid" aria-label="Tổng quan khuyến nghị">
         <MetricBadge
-          label="Buy"
+          label="Mua"
           value={dataset.recommendations.filter((item) => item.action === 'Buy').length}
           tone="positive"
         />
         <MetricBadge
-          label="Hold"
+          label="Nắm giữ"
           value={dataset.recommendations.filter((item) => item.action === 'Hold').length}
           tone="warning"
         />
         <MetricBadge
-          label="Sell/Avoid"
+          label="Tránh/Bán"
           value={dataset.recommendations.filter((item) => item.action === 'Sell/Avoid').length}
           tone="danger"
         />
-        <MetricBadge label="Watchlist" value={watchlist.symbols.length} />
+        <MetricBadge label="Danh sách theo dõi" value={watchlist.symbols.length} />
       </div>
 
-      <section className="watchlist-panel" aria-label="Watchlist">
+      <section className="watchlist-panel" aria-label="Danh sách theo dõi">
         <form className="watchlist-form" onSubmit={submitWatchlist}>
-          <label htmlFor="watchlist-symbol">Watchlist</label>
+          <label htmlFor="watchlist-symbol">Danh sách theo dõi</label>
           <div>
             <input
               id="watchlist-symbol"
@@ -108,7 +109,7 @@ export function StockDashboard({ dataset, refreshState, onRefresh }: StockDashbo
               onChange={(event) => setWatchlistDraft(event.target.value)}
               placeholder="Thêm mã"
             />
-            <button type="submit" className="icon-button" aria-label="Thêm mã vào watchlist">
+            <button type="submit" className="icon-button" aria-label="Thêm mã vào danh sách theo dõi">
               <Plus size={18} />
             </button>
           </div>
@@ -118,7 +119,7 @@ export function StockDashboard({ dataset, refreshState, onRefresh }: StockDashbo
             <span className="watchlist-chip" key={symbol}>
               <span>{symbol}</span>
               {watchlist.isCustomSymbol(symbol) ? (
-                <button type="button" onClick={() => watchlist.removeSymbol(symbol)} aria-label={`Bỏ ${symbol} khỏi watchlist`}>
+                <button type="button" onClick={() => watchlist.removeSymbol(symbol)} aria-label={`Bỏ ${symbol} khỏi danh sách theo dõi`}>
                   <StarOff size={14} />
                 </button>
               ) : (
@@ -144,7 +145,7 @@ export function StockDashboard({ dataset, refreshState, onRefresh }: StockDashbo
           className={showWatchlistOnly ? 'segmented-button active' : 'segmented-button'}
           onClick={() => setShowWatchlistOnly((current) => !current)}
         >
-          Watchlist
+          Danh sách theo dõi
         </button>
       </div>
 
@@ -160,8 +161,8 @@ export function StockDashboard({ dataset, refreshState, onRefresh }: StockDashbo
                 <th>Kỹ thuật</th>
                 <th>Nhãn</th>
                 <th>Hành động</th>
-                <th>Confidence</th>
-                <th aria-label="Watchlist" />
+                <th>Độ tin cậy</th>
+                <th aria-label="Danh sách theo dõi" />
               </tr>
             </thead>
             <tbody>
@@ -180,13 +181,15 @@ export function StockDashboard({ dataset, refreshState, onRefresh }: StockDashbo
                         <span>{stock?.name ?? 'Không rõ tên'}</span>
                       </button>
                     </td>
-                    <td>{stock?.sector ?? 'N/A'}</td>
+                    <td>{stock?.sector ?? 'Không có'}</td>
                     <td>{item.totalScore}</td>
                     <td>{item.fundamentalScore}</td>
                     <td>{item.technicalScore}</td>
                     <td>{item.softLabel}</td>
                     <td>
-                      <span className={`action-pill action-pill--${actionTone(item.action)}`}>{item.action}</span>
+                      <span className={`action-pill action-pill--${actionTone(item.action)}`}>
+                        {recommendationActionLabel(item.action)}
+                      </span>
                     </td>
                     <td>{Math.round(item.confidence * 100)}%</td>
                     <td>
@@ -198,7 +201,7 @@ export function StockDashboard({ dataset, refreshState, onRefresh }: StockDashbo
                             event.stopPropagation();
                             watchlist.removeSymbol(item.symbol);
                           }}
-                          aria-label={`Bỏ ${item.symbol} khỏi watchlist`}
+                          aria-label={`Bỏ ${item.symbol} khỏi danh sách theo dõi`}
                           disabled={!watchlist.isCustomSymbol(item.symbol)}
                         >
                           <Star size={16} />
@@ -211,7 +214,7 @@ export function StockDashboard({ dataset, refreshState, onRefresh }: StockDashbo
                             event.stopPropagation();
                             watchlist.addSymbol(item.symbol);
                           }}
-                          aria-label={`Thêm ${item.symbol} vào watchlist`}
+                          aria-label={`Thêm ${item.symbol} vào danh sách theo dõi`}
                         >
                           <StarOff size={16} />
                         </button>

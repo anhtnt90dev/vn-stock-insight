@@ -55,14 +55,14 @@ export default function App() {
         <StockDashboard
           dataset={dataset}
           refreshState={refreshState}
-          onRefresh={() => setRefreshState('Manual refresh sẽ được bật ở Task 6')}
+          onRefresh={() => setRefreshState('Làm mới thủ công sẽ được bật ở bước tiếp theo')}
         />
       }
       organizationVisualizer={
         <section className="workspace">
-          <span className="eyebrow">Organization Runtime Visualizer</span>
+          <span className="eyebrow">Trình trực quan quy trình đội AI</span>
           <h1>Quy trình đội AI</h1>
-          <p>Visualizer chi tiết sẽ được triển khai ở Task 6.</p>
+          <p>Phần trực quan chi tiết sẽ được triển khai ở bước tiếp theo.</p>
         </section>
       }
     />

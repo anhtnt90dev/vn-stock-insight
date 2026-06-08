@@ -2,6 +2,7 @@ import { X } from 'lucide-react';
 import type { FundamentalMetrics, PriceBar, Recommendation, TechnicalIndicators } from '../domain/types';
 import { MetricBadge } from './MetricBadge';
 import { PriceChart } from './PriceChart';
+import { recommendationActionLabel } from './recommendationDisplay';
 
 interface StockDetailProps {
   symbol: string;
@@ -13,7 +14,7 @@ interface StockDetailProps {
 }
 
 function formatNumber(value: number | null, digits = 1): string {
-  if (value === null) return 'N/A';
+  if (value === null) return 'Không có';
   return value.toLocaleString('vi-VN', {
     maximumFractionDigits: digits,
     minimumFractionDigits: digits,
@@ -21,7 +22,7 @@ function formatNumber(value: number | null, digits = 1): string {
 }
 
 function formatPercent(value: number | null): string {
-  if (value === null) return 'N/A';
+  if (value === null) return 'Không có';
   return `${Math.round(value * 100)}%`;
 }
 
@@ -53,13 +54,13 @@ export function StockDetail({
         <MetricBadge label="ROE" value={formatPercent(fundamentals.roe)} tone="positive" />
         <MetricBadge label="RSI" value={formatNumber(indicators.rsi14, 0)} />
         <MetricBadge label="SMA20" value={formatNumber(indicators.sma20)} />
-        <MetricBadge label="Vol20" value={formatPercent(indicators.volatility20)} />
+        <MetricBadge label="Biến động 20" value={formatPercent(indicators.volatility20)} />
       </div>
 
       <section className="recommendation-copy">
         <div>
           <span className="eyebrow">Khuyến nghị</span>
-          <h3>{recommendation.action} · {recommendation.softLabel}</h3>
+          <h3>{recommendationActionLabel(recommendation.action)} · {recommendation.softLabel}</h3>
         </div>
         {recommendation.reasons.map((reason) => (
           <p key={reason}>{reason}</p>

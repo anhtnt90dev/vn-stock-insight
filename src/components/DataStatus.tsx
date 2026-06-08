@@ -6,8 +6,8 @@ interface DataStatusProps {
 }
 
 function sourceLabel(source: DataHealth['source']): string {
-  if (source === 'github-actions-etl') return 'GitHub Actions ETL';
-  if (source === 'manual-browser-refresh') return 'Manual refresh';
+  if (source === 'github-actions-etl') return 'ETL từ GitHub Actions';
+  if (source === 'manual-browser-refresh') return 'Làm mới thủ công';
   return 'Dữ liệu tĩnh';
 }
 
@@ -36,7 +36,7 @@ export function DataStatus({ dataHealth, refreshState }: DataStatusProps) {
           <dd>{updatedAt}</dd>
         </div>
         <div>
-          <dt>Refresh</dt>
+          <dt>Làm mới</dt>
           <dd>{refreshState}</dd>
         </div>
       </dl>
