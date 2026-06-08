@@ -76,13 +76,14 @@ function hasTokenUsage(event: OrganizationEvent): event is TokenizedOrganization
   return event.tokenUsage !== undefined;
 }
 
-function summarizeTokenQuality(events: TokenizedOrganizationEvent[]): TelemetryQuality {
-  if (events.length === 0) return 'unavailable';
-  if (events.every((event) => event.telemetryQuality === 'actual')) return 'actual';
-  if (events.some((event) => event.telemetryQuality === 'actual' || event.telemetryQuality === 'estimated')) {
-    return 'estimated';
-  }
-  return 'unavailable';
+function summarizeTokenQuality(
+  agentEvents: OrganizationEvent[],
+  tokenEvents: TokenizedOrganizationEvent[],
+): TelemetryQuality {
+  if (tokenEvents.length === 0) return 'unavailable';
+  if (tokenEvents.length < agentEvents.length) return 'estimated';
+  if (tokenEvents.every((event) => event.telemetryQuality === 'actual')) return 'actual';
+  return 'estimated';
 }
 
 export function groupEventsByPhase(events: OrganizationEvent[]): Record<string, OrganizationEvent[]> {
@@ -116,7 +117,7 @@ export function summarizeAgentUsage(
       toolCalls: agentEvents.filter((event) => event.eventType === 'tool_call').length,
       tokens: {
         ...tokens,
-        quality: summarizeTokenQuality(tokenEvents),
+        quality: summarizeTokenQuality(agentEvents, tokenEvents),
       },
     };
   });

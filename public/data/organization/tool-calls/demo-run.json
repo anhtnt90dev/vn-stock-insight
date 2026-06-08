@@ -8,7 +8,7 @@
     "purpose": "Confirm branch and local workspace state before editing Task 4 files.",
     "status": "passed",
     "durationMs": 450,
-    "summary": "Confirmed the active branch and avoided including any repository secrets or environment values.",
+    "summary": "Confirmed the active branch and avoided including any sensitive repository or environment values.",
     "sanitized": true
   },
   {
