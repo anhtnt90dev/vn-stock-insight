@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AppShell } from './components/AppShell';
+import { OrganizationVisualizer } from './components/OrganizationVisualizer';
 import { StockDashboard } from './components/StockDashboard';
 import { loadMarketDataset } from './data/loaders';
+import { manualRefreshWithFallback } from './data/manualRefresh';
 import type { MarketDataset } from './domain/types';
 
 export default function App() {
@@ -27,6 +29,20 @@ export default function App() {
   useEffect(() => {
     loadDataset();
   }, [loadDataset]);
+
+  async function handleRefresh() {
+    if (!dataset) return;
+
+    setRefreshState('Đang chạy manual refresh...');
+
+    try {
+      const result = await manualRefreshWithFallback(dataset);
+      setDataset(result.dataset);
+      setRefreshState(result.state);
+    } catch {
+      setRefreshState('Manual refresh không khả dụng; tiếp tục dùng dữ liệu ETL tĩnh.');
+    }
+  }
 
   if (error) {
     return (
@@ -55,16 +71,10 @@ export default function App() {
         <StockDashboard
           dataset={dataset}
           refreshState={refreshState}
-          onRefresh={() => setRefreshState('Làm mới thủ công sẽ được bật ở bước tiếp theo')}
+          onRefresh={handleRefresh}
         />
       }
-      organizationVisualizer={
-        <section className="workspace">
-          <span className="eyebrow">Trình trực quan quy trình đội AI</span>
-          <h1>Quy trình đội AI</h1>
-          <p>Phần trực quan chi tiết sẽ được triển khai ở bước tiếp theo.</p>
-        </section>
-      }
+      organizationVisualizer={<OrganizationVisualizer />}
     />
   );
 }
